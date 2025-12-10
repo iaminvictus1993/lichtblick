@@ -10,7 +10,7 @@ import {
   ExtensionData,
   InstallExtensionsResult,
 } from "@lichtblick/suite-base/context/ExtensionCatalogContext";
-import BasicBuilder from "@lichtblick/suite-base/testing/builders/BasicBuilder";
+import { BasicBuilder } from "@lichtblick/test-builders";
 
 import { useInstallingExtensionsState } from "./useInstallingExtensionsState";
 

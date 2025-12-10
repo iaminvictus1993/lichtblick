@@ -12,7 +12,7 @@ import {
   getMessageDocumentationLink,
   toggleExpansion,
 } from "@lichtblick/suite-base/panels/RawMessages/utils";
-import BasicBuilder from "@lichtblick/suite-base/testing/builders/BasicBuilder";
+import { BasicBuilder } from "@lichtblick/test-builders";
 
 describe("getMessageDocumentationLink", () => {
   it("links to ROS and Foxglove docs", () => {

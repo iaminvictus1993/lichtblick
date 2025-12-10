@@ -13,7 +13,7 @@ import { DynamicBufferGeometry } from "@lichtblick/suite-base/panels/ThreeDeeRen
 
 import { RenderablePrimitive } from "./RenderablePrimitive";
 import type { IRenderer } from "../../IRenderer";
-import { makeRgba, rgbToThreeColor, SRGBToLinear, stringToRgba } from "../../color";
+import { makeRgba, rgbToThreeColor, stringToRgba } from "../../color";
 import { LayerSettingsEntity } from "../../settings";
 
 const tempRgba = makeRgba();
@@ -109,26 +109,21 @@ export class RenderableTriangles extends RenderablePrimitive {
               `Entity: ${this.userData.entity?.id}.triangles[${triMeshIdx}](1st index) - Colors array should be same size as points array, showing #00ff00 instead`,
             );
           }
-          const r = SRGBToLinear(color.r);
-          const g = SRGBToLinear(color.g);
-          const b = SRGBToLinear(color.b);
-          const a = color.a;
 
-          const colorStride = colors.itemSize;
-          const colorOffset = i * colorStride;
+          const colorOffset = i * colors.itemSize;
 
           const EPS = 2 / 255;
           const diff =
-            Math.abs(colors.array[colorOffset]! / 255 - r) > EPS ||
-            Math.abs(colors.array[colorOffset + 1]! / 255 - g) > EPS ||
-            Math.abs(colors.array[colorOffset + 2]! / 255 - b) > EPS ||
-            Math.abs(colors.array[colorOffset + 3]! / 255 - a) > EPS;
+            Math.abs(colors.array[colorOffset]! / 255 - color.r) > EPS ||
+            Math.abs(colors.array[colorOffset + 1]! / 255 - color.g) > EPS ||
+            Math.abs(colors.array[colorOffset + 2]! / 255 - color.b) > EPS ||
+            Math.abs(colors.array[colorOffset + 3]! / 255 - color.a) > EPS;
 
           if (diff) {
-            colors.setXYZW(i, r, g, b, a);
+            colors.setXYZW(i, color.r, color.g, color.b, color.a);
             colorChanged = true;
           }
-          if (!transparent && a < 1.0) {
+          if (!transparent && color.a < 1.0) {
             transparent = true;
           }
         }
